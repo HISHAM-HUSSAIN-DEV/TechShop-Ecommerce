@@ -5,6 +5,7 @@ import Logo from "../Logo.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 
 import { useAuth } from "../../context/AuthContext";
+import { useCart } from "../../context/CartContext";
 
 import { FaUserCircle } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
@@ -21,9 +22,17 @@ const Header = () => {
     logout,
   } = useAuth();
 
+  const { cartItems } = useCart();
+
   const [openMenu, setOpenMenu] = useState(false);
 
   const location = useLocation();
+
+  const totalCartItems = cartItems.reduce(
+    (total, item) =>
+      total + Number(item.quantity || 0),
+    0
+  );
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -76,10 +85,18 @@ const Header = () => {
                 location.pathname +
                 location.search,
             }}
-            aria-label="Cart"
-            className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-700 bg-slate-900 text-slate-200 transition hover:border-blue-500 hover:bg-slate-800 hover:text-white"
+            aria-label={`Cart with ${totalCartItems} items`}
+            className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-slate-700 bg-slate-900 text-slate-200 transition hover:border-blue-500 hover:bg-slate-800 hover:text-white"
           >
             <FaCartShopping className="text-xl" />
+
+            {totalCartItems > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-xs font-bold leading-none text-white shadow">
+                {totalCartItems > 99
+                  ? "99+"
+                  : totalCartItems}
+              </span>
+            )}
           </Link>
 
           {/* User */}
