@@ -212,12 +212,14 @@ const Card = ({ product }) => {
           </p>
 
           {/* Price + Actions */}
-          <div className="mt-auto flex items-center justify-between gap-3 pt-5">
-            <span className="shrink-0 text-xl font-bold text-primary">
+          <div className="mt-auto pt-5">
+            {/* Price */}
+            <span className="block text-xl font-bold text-primary">
               {product.price} SAR
             </span>
 
-            <div className="flex items-center gap-2">
+            {/* Wishlist + Add to Cart */}
+            <div className="mt-3 flex items-center gap-2">
               <button
                 type="button"
                 onClick={handleWishlist}
@@ -239,7 +241,7 @@ const Card = ({ product }) => {
                 onAdd={handleAddToCart}
                 disabled={isOutOfStock}
                 variant="primary"
-                className="px-4 py-1 text-sm"
+                className="min-w-0 flex-1 px-4 py-2.5 text-sm"
               />
             </div>
           </div>
