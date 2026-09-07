@@ -23,11 +23,19 @@ const Cart = () => {
     0
   );
 
+  const formattedSubTotal = subTotal.toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }
+  );
+
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
       {/* Header */}
-      <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-4xl font-bold text-gray-900">
+      <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
           Your Cart
         </h1>
 
@@ -43,7 +51,7 @@ const Cart = () => {
 
       {cartItems.length === 0 ? (
         /* Empty Cart */
-        <div className="rounded-xl border border-gray-200 bg-white px-6 py-16 text-center shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white px-4 py-12 text-center shadow-sm sm:px-6 sm:py-16">
           <h2 className="text-2xl font-semibold text-gray-800">
             Your cart is empty
           </h2>
@@ -84,15 +92,15 @@ const Cart = () => {
           ))}
 
           {/* Summary */}
-          <div className="mt-10 flex justify-end">
-            <div className="w-full rounded-xl border border-gray-200 bg-white p-6 shadow-sm md:w-96">
-              <div className="mb-6 flex justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">
+          <div className="mt-8 flex justify-end sm:mt-10">
+            <div className="w-full rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6 md:w-96">
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <h2 className="text-lg font-semibold text-gray-900 sm:text-xl">
                   Subtotal
                 </h2>
 
-                <span className="text-2xl font-bold text-gray-900">
-                  {subTotal.toFixed(2)} SAR
+                <span className="text-xl font-bold text-gray-900 sm:text-2xl">
+                  {formattedSubTotal} SAR
                 </span>
               </div>
 

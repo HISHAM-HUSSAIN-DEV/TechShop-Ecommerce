@@ -27,7 +27,10 @@ const Checkout = () => {
     type: "success",
   });
 
-  const showToast = (message, type = "success") => {
+  const showToast = (
+    message,
+    type = "success"
+  ) => {
     setToast({
       message,
       type,
@@ -39,6 +42,12 @@ const Checkout = () => {
       total + item.price * item.quantity,
     0
   );
+
+  const formattedTotalPrice =
+    totalPrice.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,6 +68,7 @@ const Checkout = () => {
         "Your cart is empty.",
         "warning"
       );
+
       return;
     }
 
@@ -71,31 +81,37 @@ const Checkout = () => {
         "Please complete your shipping information.",
         "warning"
       );
+
       return;
     }
 
     try {
       setLoading(true);
 
-      const items = cartItems.map((item) => ({
-        product: item._id,
-        quantity: item.quantity,
-      }));
+      const items = cartItems.map(
+        (item) => ({
+          product: item._id,
+          quantity: item.quantity,
+        })
+      );
 
       const res = await fetch(
         `${API_URL}/orders`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type":
+              "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             items,
             shippingAddress: {
-              address: formData.address.trim(),
+              address:
+                formData.address.trim(),
               city: formData.city.trim(),
-              postCode: formData.postCode.trim(),
+              postCode:
+                formData.postCode.trim(),
             },
           }),
         }
@@ -105,9 +121,11 @@ const Checkout = () => {
 
       if (!res.ok) {
         showToast(
-          data.message || "Unable to place order.",
+          data.message ||
+            "Unable to place order.",
           "error"
         );
+
         return;
       }
 
@@ -119,7 +137,10 @@ const Checkout = () => {
         },
       });
     } catch (error) {
-      console.error("PLACE ORDER ERROR:", error);
+      console.error(
+        "PLACE ORDER ERROR:",
+        error
+      );
 
       showToast(
         "Something went wrong. Please try again.",
@@ -145,8 +166,8 @@ const Checkout = () => {
         />
 
         <div className="min-h-screen bg-gray-100 px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl rounded-xl bg-white px-6 py-16 text-center shadow-sm">
-            <h1 className="text-3xl font-bold text-gray-800">
+          <div className="mx-auto max-w-3xl rounded-xl bg-white px-4 py-12 text-center shadow-sm sm:px-6 sm:py-16">
+            <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl">
               Your cart is empty
             </h1>
 
@@ -156,8 +177,10 @@ const Checkout = () => {
 
             <button
               type="button"
-              onClick={() => navigate("/")}
-              className="mt-6 cursor-pointer rounded-lg bg-primary px-6 py-3 font-medium text-white transition hover:bg-blue-700"
+              onClick={() =>
+                navigate("/")
+              }
+              className="mt-6 cursor-pointer rounded-lg bg-primary px-6 py-3 font-medium text-white transition hover:bg-blue-700 active:scale-95"
             >
               Start Shopping
             </button>
@@ -191,7 +214,7 @@ const Checkout = () => {
             className="grid gap-8 lg:grid-cols-3"
           >
             {/* Shipping Information */}
-            <div className="rounded-xl bg-white p-6 shadow-sm lg:col-span-2">
+            <div className="rounded-xl bg-white p-5 shadow-sm sm:p-6 lg:col-span-2">
               <h2 className="mb-6 text-xl font-semibold text-gray-800">
                 Shipping Information
               </h2>
@@ -209,9 +232,14 @@ const Checkout = () => {
                     id="address"
                     type="text"
                     name="address"
-                    value={formData.address}
-                    onChange={handleChange}
+                    value={
+                      formData.address
+                    }
+                    onChange={
+                      handleChange
+                    }
                     placeholder="Enter your address"
+                    autoComplete="street-address"
                     disabled={loading}
                     className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-gray-100"
                   />
@@ -230,9 +258,14 @@ const Checkout = () => {
                       id="city"
                       type="text"
                       name="city"
-                      value={formData.city}
-                      onChange={handleChange}
+                      value={
+                        formData.city
+                      }
+                      onChange={
+                        handleChange
+                      }
                       placeholder="Enter your city"
+                      autoComplete="address-level2"
                       disabled={loading}
                       className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-gray-100"
                     />
@@ -250,9 +283,14 @@ const Checkout = () => {
                       id="postCode"
                       type="text"
                       name="postCode"
-                      value={formData.postCode}
-                      onChange={handleChange}
+                      value={
+                        formData.postCode
+                      }
+                      onChange={
+                        handleChange
+                      }
                       placeholder="Enter your post code"
+                      autoComplete="postal-code"
                       disabled={loading}
                       className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:cursor-not-allowed disabled:bg-gray-100"
                     />
@@ -262,50 +300,70 @@ const Checkout = () => {
             </div>
 
             {/* Order Summary */}
-            <div className="h-fit rounded-xl bg-white p-6 shadow-sm">
+            <div className="h-fit rounded-xl bg-white p-5 shadow-sm sm:p-6">
               <h2 className="mb-6 text-xl font-semibold text-gray-800">
                 Order Summary
               </h2>
 
               <div className="space-y-4">
-                {cartItems.map((item) => (
-                  <div
-                    key={item._id}
-                    className="flex justify-between gap-4"
-                  >
-                    <div>
-                      <p className="font-medium text-gray-800">
-                        {item.name}
-                      </p>
+                {cartItems.map(
+                  (item) => {
+                    const itemTotal =
+                      item.price *
+                      item.quantity;
 
-                      <p className="text-sm text-gray-500">
-                        Qty: {item.quantity}
-                      </p>
-                    </div>
+                    return (
+                      <div
+                        key={item._id}
+                        className="flex items-start justify-between gap-4"
+                      >
+                        <div className="min-w-0 flex-1">
+                          <p className="break-words font-medium text-gray-800">
+                            {item.name}
+                          </p>
 
-                    <p className="font-medium text-gray-800">
-                      {(item.price * item.quantity).toFixed(2)} SAR
-                    </p>
-                  </div>
-                ))}
+                          <p className="mt-1 text-sm text-gray-500">
+                            Qty:{" "}
+                            {Number(
+                              item.quantity
+                            ).toLocaleString(
+                              "en-US"
+                            )}
+                          </p>
+                        </div>
+
+                        <p className="shrink-0 font-medium text-gray-800">
+                          {itemTotal.toLocaleString(
+                            "en-US",
+                            {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }
+                          )}{" "}
+                          SAR
+                        </p>
+                      </div>
+                    );
+                  }
+                )}
               </div>
 
               <div className="my-6 border-t" />
 
-              <div className="flex justify-between">
+              <div className="flex items-center justify-between gap-4">
                 <span className="text-lg font-semibold">
                   Total
                 </span>
 
                 <span className="text-xl font-bold">
-                  {totalPrice.toFixed(2)} SAR
+                  {formattedTotalPrice} SAR
                 </span>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="mt-6 flex min-h-12 w-full cursor-pointer items-center justify-center rounded-lg bg-black px-4 font-semibold text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+                className="mt-6 flex min-h-12 w-full cursor-pointer items-center justify-center rounded-lg bg-black px-4 font-semibold text-white transition hover:bg-gray-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? (
                   <LoadingSpinner

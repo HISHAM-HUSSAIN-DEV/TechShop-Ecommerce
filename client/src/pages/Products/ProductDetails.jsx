@@ -6,6 +6,7 @@ import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 import AddToCartButton from "../../components/AddToCartButton.jsx";
 import Toast from "../../components/Toast.jsx";
+import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ProductDetails = () => {
@@ -123,7 +124,7 @@ const ProductDetails = () => {
       if (!response.ok) {
         throw new Error(
           data.message ||
-            "Failed to load product"
+          "Failed to load product"
         );
       }
 
@@ -260,7 +261,7 @@ const ProductDetails = () => {
           } else {
             showReviewFeedback(
               data.message ||
-                "Failed to add review",
+              "Failed to add review",
               "error"
             );
           }
@@ -343,8 +344,8 @@ const ProductDetails = () => {
   // =========================
   if (loading) {
     return (
-      <div className="py-20 text-center text-gray-500">
-        Loading product...
+      <div className="flex min-h-96 items-center justify-center">
+        <LoadingSpinner text="Loading product..." />
       </div>
     );
   }
@@ -354,8 +355,24 @@ const ProductDetails = () => {
   // =========================
   if (error) {
     return (
-      <div className="py-20 text-center text-red-500">
-        {error}
+      <div className="flex min-h-96 items-center justify-center px-4">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-800">
+            Something went wrong
+          </h2>
+
+          <p className="mt-2 text-sm text-gray-500">
+            {error}
+          </p>
+
+          <button
+            type="button"
+            onClick={fetchProduct}
+            className="mt-5 cursor-pointer rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 active:scale-95"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }
@@ -432,14 +449,14 @@ const ProductDetails = () => {
               <FaStar
                 className={
                   totalReviews >
-                  0
+                    0
                     ? "text-yellow-400"
                     : "text-gray-300"
                 }
               />
 
               {totalReviews >
-              0 ? (
+                0 ? (
                 <>
                   <span className="font-semibold">
                     {
@@ -453,7 +470,7 @@ const ProductDetails = () => {
                       totalReviews
                     }{" "}
                     {totalReviews ===
-                    1
+                      1
                       ? "review"
                       : "reviews"}
                     )
@@ -469,7 +486,7 @@ const ProductDetails = () => {
             {/* Price */}
 
             <p className="mt-6 text-3xl font-bold text-gray-900">
-              {product.price.toLocaleString()}{" "}
+              {Number(product.price).toLocaleString("en-US")}{" "}
               SAR
             </p>
 
@@ -485,10 +502,10 @@ const ProductDetails = () => {
 
             <div className="mt-6">
               {product.stock >
-              0 ? (
+                0 ? (
                 <p className="font-medium text-green-600">
                   In Stock (
-                  {product.stock}{" "}
+                  {Number(product.stock).toLocaleString("en-US")}{" "}
                   available)
                 </p>
               ) : (
@@ -525,15 +542,14 @@ const ProductDetails = () => {
 
           <div className="mt-4 flex items-center gap-3">
             <FaStar
-              className={`text-xl ${
-                totalReviews > 0
+              className={`text-xl ${totalReviews > 0
                   ? "text-yellow-400"
                   : "text-gray-300"
-              }`}
+                }`}
             />
 
             {totalReviews >
-            0 ? (
+              0 ? (
               <span className="text-lg font-semibold">
                 {
                   averageRating
@@ -549,14 +565,14 @@ const ProductDetails = () => {
 
           {totalReviews >
             0 && (
-            <p className="mt-1 text-sm text-gray-500">
-              Based on{" "}
-              {totalReviews}{" "}
-              {totalReviews === 1
-                ? "review"
-                : "reviews"}
-            </p>
-          )}
+              <p className="mt-1 text-sm text-gray-500">
+                Based on{" "}
+                {totalReviews}{" "}
+                {totalReviews === 1
+                  ? "review"
+                  : "reviews"}
+              </p>
+            )}
 
           {/* ========================= */}
           {/* Write Review */}
@@ -619,7 +635,7 @@ const ProductDetails = () => {
                           <FaStar
                             className={
                               star <=
-                              rating
+                                rating
                                 ? "text-yellow-400"
                                 : "text-gray-300"
                             }
@@ -672,13 +688,12 @@ const ProductDetails = () => {
 
                 {reviewFeedback.message && (
                   <div
-                    className={`mt-4 rounded-lg border px-4 py-3 text-sm font-medium ${
-                      reviewMessageStyles[
-                        reviewFeedback
-                          .type
+                    className={`mt-4 rounded-lg border px-4 py-3 text-sm font-medium ${reviewMessageStyles[
+                      reviewFeedback
+                        .type
                       ] ||
                       reviewMessageStyles.error
-                    }`}
+                      }`}
                   >
                     {
                       reviewFeedback.message
@@ -696,13 +711,12 @@ const ProductDetails = () => {
                     reviewLoading ||
                     reviewSubmitted
                   }
-                  className={`mt-5 flex min-w-40 items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-all duration-200 ${
-                    reviewSubmitted
+                  className={`mt-5 flex min-w-40 items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-all duration-200 ${reviewSubmitted
                       ? "scale-95 bg-green-600"
                       : reviewLoading
                         ? "cursor-not-allowed bg-gray-400"
                         : "cursor-pointer bg-blue-600 hover:bg-blue-700 active:scale-95"
-                  }`}
+                    }`}
                 >
                   {reviewLoading ? (
                     <>
@@ -732,7 +746,7 @@ const ProductDetails = () => {
 
           <div className="mt-10">
             {reviews.length ===
-            0 ? (
+              0 ? (
               <div className="rounded-xl bg-gray-50 p-8 text-center">
                 <p className="text-gray-500">
                   No reviews
@@ -790,7 +804,7 @@ const ProductDetails = () => {
                                   }
                                   className={
                                     star <=
-                                    review.rating
+                                      review.rating
                                       ? "text-yellow-400"
                                       : "text-gray-300"
                                   }

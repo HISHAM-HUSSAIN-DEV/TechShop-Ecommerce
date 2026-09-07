@@ -64,19 +64,19 @@ const Header = () => {
 
   return (
     <header className="bg-slate-950 shadow-md">
-      <div className="container mx-auto grid grid-cols-[1fr_2fr_1fr] items-center gap-4 px-4 py-4">
+      <div className="container mx-auto grid grid-cols-[1fr_auto] items-center gap-3 px-4 py-4 md:grid-cols-[1fr_2fr_1fr] md:gap-4">
         {/* Logo */}
-        <div className="justify-self-start">
+        <div className="min-w-0 justify-self-start">
           <Logo />
         </div>
 
-        {/* Search */}
+        {/* Desktop Search */}
         <div className="hidden w-full md:block">
           <SearchBar />
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-self-end gap-3">
+        <div className="flex items-center justify-self-end gap-2 sm:gap-3">
           {/* Cart */}
           <Link
             to="/cart"
@@ -86,9 +86,9 @@ const Header = () => {
                 location.search,
             }}
             aria-label={`Cart with ${totalCartItems} items`}
-            className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-slate-700 bg-slate-900 text-slate-200 transition hover:border-blue-500 hover:bg-slate-800 hover:text-white"
+            className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-700 bg-slate-900 text-slate-200 transition hover:border-blue-500 hover:bg-slate-800 hover:text-white sm:h-11 sm:w-11"
           >
-            <FaCartShopping className="text-xl" />
+            <FaCartShopping className="text-lg sm:text-xl" />
 
             {totalCartItems > 0 && (
               <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-xs font-bold leading-none text-white shadow">
@@ -110,9 +110,9 @@ const Header = () => {
                 onClick={() =>
                   setOpenMenu((prev) => !prev)
                 }
-                className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 transition hover:border-blue-500 hover:bg-slate-800"
+                className="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-2.5 py-2 transition hover:border-blue-500 hover:bg-slate-800 sm:gap-3 sm:px-3"
               >
-                <FaUserCircle className="text-3xl text-slate-200" />
+                <FaUserCircle className="text-2xl text-slate-200 sm:text-3xl" />
 
                 <div className="hidden text-left sm:block">
                   <p className="text-xs text-slate-400">
@@ -125,7 +125,7 @@ const Header = () => {
                 </div>
 
                 <IoChevronDown
-                  className={`text-slate-400 transition-transform duration-200 ${
+                  className={`hidden text-slate-400 transition-transform duration-200 sm:block ${
                     openMenu
                       ? "rotate-180"
                       : ""
@@ -134,11 +134,11 @@ const Header = () => {
               </button>
 
               {openMenu && (
-                <div className="absolute right-0 z-50 mt-3 w-72 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
+                <div className="absolute right-0 z-50 mt-3 w-72 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
                   {/* User Info */}
                   <div className="border-b border-gray-100 bg-gray-50 p-4">
                     <div className="flex items-center gap-3">
-                      <FaUserCircle className="text-4xl text-slate-700" />
+                      <FaUserCircle className="shrink-0 text-4xl text-slate-700" />
 
                       <div className="min-w-0">
                         <p className="truncate font-semibold text-gray-900">
@@ -206,7 +206,7 @@ const Header = () => {
           ) : (
             <Link
               to="/signin"
-              className="flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 font-semibold text-white transition hover:bg-blue-500"
+              className="flex items-center justify-center whitespace-nowrap rounded-xl bg-blue-600 px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500 sm:px-5 sm:text-base"
             >
               Sign In
             </Link>
