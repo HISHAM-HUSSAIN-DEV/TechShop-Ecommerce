@@ -94,8 +94,9 @@ const Footer = () => {
           {/* Social */}
           <div className="flex items-center gap-3">
             <a
-              href="#"
-              onClick={(e) => e.preventDefault()}
+              href="https://github.com/HISHAM-HUSSAIN-DEV"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="GitHub"
               className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 text-slate-400 transition hover:border-blue-500 hover:bg-slate-800 hover:text-blue-400"
             >
@@ -103,8 +104,9 @@ const Footer = () => {
             </a>
 
             <a
-              href="#"
-              onClick={(e) => e.preventDefault()}
+              href="https://www.linkedin.com/in/hesham-alsaedi-6ab1a1406"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="LinkedIn"
               className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 text-slate-400 transition hover:border-blue-500 hover:bg-slate-800 hover:text-blue-400"
             >
