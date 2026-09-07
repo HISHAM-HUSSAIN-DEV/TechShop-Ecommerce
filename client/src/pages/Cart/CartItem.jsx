@@ -38,7 +38,7 @@ const CartItem = ({ item }) => {
           </p>
 
           <p className="mt-1 text-xs text-gray-400">
-            {item.stock} available
+            {Number(item.stock).toLocaleString("en-US")} available
           </p>
         </div>
       </div>
@@ -61,13 +61,14 @@ const CartItem = ({ item }) => {
             -
           </button>
 
-          <input
-            type="number"
-            value={item.quantity}
-            readOnly
+          <span
             aria-label={`Quantity of ${item.name}`}
-            className="w-14 text-center outline-none"
-          />
+            className="w-14 text-center"
+          >
+            {Number(item.quantity).toLocaleString(
+              "en-US"
+            )}
+          </span>
 
           <button
             type="button"
@@ -101,7 +102,11 @@ const CartItem = ({ item }) => {
       {/* Total */}
       <div className="text-right">
         <h2 className="text-2xl font-bold">
-          {itemTotal.toFixed(2)} SAR
+          {itemTotal.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}{" "}
+          SAR
         </h2>
       </div>
     </div>
