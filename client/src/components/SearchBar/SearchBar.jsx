@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import SearchSuggestions from "./SearchSuggestions.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const SearchBar = () => {
   const navigate = useNavigate();
 
@@ -48,7 +50,7 @@ const SearchBar = () => {
     const fetchSuggestions = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/products?search=${encodeURIComponent(
+          `${API_URL}/products?search=${encodeURIComponent(
             searchValue
           )}`,
           {

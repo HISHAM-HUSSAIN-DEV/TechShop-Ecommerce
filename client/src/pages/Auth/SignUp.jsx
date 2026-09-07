@@ -8,6 +8,7 @@ import PhoneInput from "react-phone-number-input";
 
 import Toast from "../../components/Toast.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -153,7 +154,7 @@ const SignUp = () => {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:5000/users/signup",
+        `${API_URL}/users/signup`,
         {
           method: "POST",
           headers: {

@@ -14,6 +14,7 @@ import Toast from "../../../components/Toast.jsx";
 import StatusBadge from "../../../components/StatusBadge.jsx";
 import LoadingSpinner from "../../../components/LoadingSpinner.jsx";
 import ConfirmModal from "../../../components/ConfirmModal.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const OrderDetails = () => {
     const { orderNumber } = useParams();
@@ -55,7 +56,7 @@ const OrderDetails = () => {
         const fetchOrder = async () => {
             try {
                 const res = await fetch(
-                    `http://localhost:5000/orders/${orderNumber}`,
+                    `${API_URL}/orders/${orderNumber}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -102,7 +103,7 @@ const OrderDetails = () => {
             setCancelling(true);
 
             const res = await fetch(
-                `http://localhost:5000/orders/${order.orderNumber}/cancel`,
+                `${API_URL}/orders/${order.orderNumber}/cancel`,
                 {
                     method: "PUT",
                     headers: {
@@ -151,7 +152,7 @@ const OrderDetails = () => {
             setReturnLoading(true);
 
             const res = await fetch(
-                `http://localhost:5000/orders/${order.orderNumber}/return`,
+                `${API_URL}/orders/${order.orderNumber}/return`,
                 {
                     method: "PUT",
                     headers: {

@@ -8,6 +8,8 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 import Toast from "../../components/Toast.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const UsersManagement = () => {
   const { token } = useAuth();
 
@@ -35,7 +37,7 @@ const UsersManagement = () => {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:5000/users/admin/users",
+        `${API_URL}/users/admin/users`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,7 +50,7 @@ const UsersManagement = () => {
       if (!response.ok) {
         showToast(
           data.message ||
-          "Failed to load users",
+            "Failed to load users",
           "error"
         );
 
@@ -88,8 +90,9 @@ const UsersManagement = () => {
 
     return users.filter((user) => {
       const fullName =
-        `${user.firstName || ""} ${user.lastName || ""
-          }`.toLowerCase();
+        `${user.firstName || ""} ${
+          user.lastName || ""
+        }`.toLowerCase();
 
       const email =
         user.email?.toLowerCase() || "";
@@ -126,7 +129,6 @@ const UsersManagement = () => {
 
       <div className="space-y-6">
         {/* Header */}
-
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
@@ -150,7 +152,6 @@ const UsersManagement = () => {
         </div>
 
         {/* Search */}
-
         <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
           <input
             type="text"
@@ -164,7 +165,6 @@ const UsersManagement = () => {
         </div>
 
         {/* Users Table */}
-
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           {filteredUsers.length === 0 ? (
             <div className="p-10 text-center">
@@ -227,28 +227,30 @@ const UsersManagement = () => {
 
                         <td className="whitespace-nowrap px-6 py-4">
                           <span
-                            className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${user.role === "admin"
+                            className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                              user.role === "admin"
                                 ? "bg-blue-100 text-blue-700"
                                 : "bg-gray-100 text-gray-700"
-                              }`}
+                            }`}
                           >
-                            {user.role === "admin" ? "Admin" : "User"}
+                            {user.role === "admin"
+                              ? "Admin"
+                              : "User"}
                           </span>
                         </td>
 
                         <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                           {user.createdAt
                             ? new Date(
-                              user.createdAt
-                            ).toLocaleDateString(
-                              "en-US",
-                              {
-                                month:
-                                  "short",
-                                day: "numeric",
-                                year: "numeric",
-                              }
-                            )
+                                user.createdAt
+                              ).toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                }
+                              )
                             : "—"}
                         </td>
                       </tr>

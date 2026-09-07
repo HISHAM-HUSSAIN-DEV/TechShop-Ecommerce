@@ -5,6 +5,8 @@ import Toast from "../../components/Toast.jsx";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const getNextReturnStatuses = (currentStatus) => {
   const transitions = {
     Requested: ["Approved", "Rejected"],
@@ -41,7 +43,7 @@ const ReturnsManagement = () => {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:5000/orders/admin/returns",
+        `${API_URL}/orders/admin/returns`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -86,7 +88,7 @@ const ReturnsManagement = () => {
       setUpdatingOrder(orderNumber);
 
       const res = await fetch(
-        `http://localhost:5000/orders/admin/${orderNumber}/return-status`,
+        `${API_URL}/orders/admin/${orderNumber}/return-status`,
         {
           method: "PUT",
           headers: {
@@ -113,9 +115,9 @@ const ReturnsManagement = () => {
         prev.map((order) =>
           order.orderNumber === orderNumber
             ? {
-              ...order,
-              returnStatus: data.order.returnStatus,
-            }
+                ...order,
+                returnStatus: data.order.returnStatus,
+              }
             : order
         )
       );

@@ -11,6 +11,8 @@ import { useAuth } from "../../context/AuthContext";
 import Toast from "../../components/Toast.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const SignIn = () => {
   const { login } = useAuth();
 
@@ -63,7 +65,7 @@ const SignIn = () => {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:5000/users/signin",
+        `${API_URL}/users/signin`,
         {
           method: "POST",
           headers: {

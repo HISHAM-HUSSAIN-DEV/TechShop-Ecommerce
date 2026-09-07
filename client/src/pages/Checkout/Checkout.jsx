@@ -7,6 +7,8 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import Toast from "../../components/Toast.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Checkout = () => {
   const { cartItems, clearCart } = useCart();
   const { user, token } = useAuth();
@@ -81,7 +83,7 @@ const Checkout = () => {
       }));
 
       const res = await fetch(
-        "http://localhost:5000/orders",
+        `${API_URL}/orders`,
         {
           method: "POST",
           headers: {

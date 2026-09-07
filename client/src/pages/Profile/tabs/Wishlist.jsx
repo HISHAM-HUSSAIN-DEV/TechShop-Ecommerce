@@ -7,6 +7,7 @@ import { useCart } from "../../../context/CartContext";
 
 import Toast from "../../../components/Toast.jsx";
 import AddToCartButton from "../../../components/AddToCartButton.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Wishlist = () => {
   const {
@@ -41,7 +42,7 @@ const Wishlist = () => {
       setRemovingId(productId);
 
       const res = await fetch(
-        `http://localhost:5000/users/wishlist/${productId}`,
+        `${API_URL}/users/wishlist/${productId}`,
         {
           method: "PUT",
           headers: {

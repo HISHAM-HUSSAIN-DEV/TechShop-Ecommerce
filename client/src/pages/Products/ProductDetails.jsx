@@ -6,6 +6,7 @@ import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 import AddToCartButton from "../../components/AddToCartButton.jsx";
 import Toast from "../../components/Toast.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -113,7 +114,7 @@ const ProductDetails = () => {
       setError("");
 
       const response = await fetch(
-        `http://localhost:5000/products/${id}`
+        `${API_URL}/products/${id}`
       );
 
       const data =
@@ -140,7 +141,7 @@ const ProductDetails = () => {
   const fetchReviews = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/reviews/product/${id}`
+        `${API_URL}/reviews/product/${id}`
       );
 
       const data =
@@ -218,7 +219,7 @@ const ProductDetails = () => {
 
         const response =
           await fetch(
-            `http://localhost:5000/reviews/product/${id}`,
+            `${API_URL}/reviews/product/${id}`,
             {
               method: "POST",
 

@@ -7,6 +7,7 @@ import { formatOrderDate } from "../../../utils/orderUtils";
 import Toast from "../../../components/Toast.jsx";
 import StatusBadge from "../../../components/StatusBadge.jsx";
 import LoadingSpinner from "../../../components/LoadingSpinner.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const MyOrders = () => {
   const { token } = useAuth();
@@ -31,7 +32,7 @@ const MyOrders = () => {
     const fetchOrders = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/orders/my-orders",
+          `${API_URL}/orders/my-orders`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

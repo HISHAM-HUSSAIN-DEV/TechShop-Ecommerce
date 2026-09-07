@@ -4,6 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import Card from "../../components/Card/Card.jsx";
 import Sort from "../../components/Sort/Sort.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Home() {
   const [products, setProducts] = useState([]);
   const [searchParams] = useSearchParams();
@@ -30,7 +32,7 @@ function Home() {
         }
 
         const res = await fetch(
-          `http://localhost:5000/products?${params.toString()}`
+          `${API_URL}/products?${params.toString()}`
         );
 
         const data = await res.json();
@@ -55,7 +57,6 @@ function Home() {
       <div className="mx-auto w-full max-w-700 px-4 sm:px-6 lg:px-8">
         {/* Products Toolbar */}
         <div className="flex items-center justify-end py-5">
-          
           <Sort
             sortValue={sort}
             onSortChange={setSort}

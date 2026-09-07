@@ -4,6 +4,7 @@ import { CiEdit } from "react-icons/ci";
 import { useAuth } from "../../../context/AuthContext";
 import Toast from "../../../components/Toast.jsx";
 import LoadingSpinner from "../../../components/LoadingSpinner.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Account = () => {
   const {
@@ -88,7 +89,7 @@ const Account = () => {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:5000/users/profile",
+        `${API_URL}/users/profile`,
         {
           method: "PUT",
           headers: {

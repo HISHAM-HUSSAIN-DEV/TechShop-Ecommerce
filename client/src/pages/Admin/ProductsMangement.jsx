@@ -9,6 +9,8 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import Toast from "../../components/Toast.jsx";
 import ConfirmModal from "../../components/ConfirmModal.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const ProductsManagement = () => {
   const { token } = useAuth();
 
@@ -51,7 +53,7 @@ const ProductsManagement = () => {
   const fetchProducts = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/products"
+        `${API_URL}/products`
       );
 
       const data = await res.json();
@@ -110,8 +112,8 @@ const ProductsManagement = () => {
       const isEditing = !!selectedProduct;
 
       const url = isEditing
-        ? `http://localhost:5000/products/${selectedProduct._id}`
-        : "http://localhost:5000/products";
+        ? `${API_URL}/products/${selectedProduct._id}`
+        : `${API_URL}/products`;
 
       const method = isEditing
         ? "PUT"
@@ -189,7 +191,7 @@ const ProductsManagement = () => {
       setDeleting(true);
 
       const res = await fetch(
-        `http://localhost:5000/products/${productToDelete._id}`,
+        `${API_URL}/products/${productToDelete._id}`,
         {
           method: "DELETE",
           headers: {

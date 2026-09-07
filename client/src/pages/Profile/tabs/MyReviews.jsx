@@ -9,6 +9,7 @@ import { useAuth } from "../../../context/AuthContext";
 
 import Toast from "../../../components/Toast.jsx";
 import LoadingSpinner from "../../../components/LoadingSpinner.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const MyReviews = () => {
   const { token } = useAuth();
@@ -39,7 +40,7 @@ const MyReviews = () => {
     const fetchMyReviews = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/reviews/my-reviews",
+          `${API_URL}/reviews/my-reviews`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

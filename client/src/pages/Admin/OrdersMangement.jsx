@@ -6,6 +6,8 @@ import Toast from "../../components/Toast.jsx";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const OrdersManagement = () => {
   const { token } = useAuth();
 
@@ -30,7 +32,7 @@ const OrdersManagement = () => {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:5000/orders/admin/all",
+        `${API_URL}/orders/admin/all`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -75,7 +77,7 @@ const OrdersManagement = () => {
       setUpdatingOrder(orderNumber);
 
       const res = await fetch(
-        `http://localhost:5000/orders/admin/${orderNumber}/status`,
+        `${API_URL}/orders/admin/${orderNumber}/status`,
         {
           method: "PUT",
           headers: {

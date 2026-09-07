@@ -7,6 +7,8 @@ import Toast from "../../components/Toast.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 import { FiArrowLeft } from "react-icons/fi";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const OrderDetails = () => {
   const { orderNumber } = useParams();
   const { token } = useAuth();
@@ -32,7 +34,7 @@ const OrderDetails = () => {
         setLoading(true);
 
         const res = await fetch(
-          `http://localhost:5000/orders/admin/${orderNumber}`,
+          `${API_URL}/orders/admin/${orderNumber}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

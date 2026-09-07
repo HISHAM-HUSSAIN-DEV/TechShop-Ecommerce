@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import Toast from "../../../components/Toast.jsx";
 import LoadingSpinner from "../../../components/LoadingSpinner.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ChangePassword = () => {
   const { token } = useAuth();
@@ -86,7 +87,7 @@ const ChangePassword = () => {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:5000/users/change-password",
+        `${API_URL}/users/change-password`,
         {
           method: "PUT",
           headers: {

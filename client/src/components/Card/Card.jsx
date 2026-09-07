@@ -9,6 +9,8 @@ import { useAuth } from "../../context/AuthContext";
 import Toast from "../../components/Toast.jsx";
 import AddToCartButton from "../../components/AddToCartButton.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Card = ({ product }) => {
   const {
     token,
@@ -52,7 +54,7 @@ const Card = ({ product }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/users/wishlist/${product._id}`,
+        `${API_URL}/users/wishlist/${product._id}`,
         {
           method: "PUT",
           headers: {

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import LoadingSpinner from "../../components/LoadingSpinner.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const AdminDashboard = () => {
   const { token } = useAuth();
 
@@ -23,7 +25,7 @@ const AdminDashboard = () => {
         setLoading(true);
 
         const res = await fetch(
-          "http://localhost:5000/orders/admin/stats/dashboard",
+          `${API_URL}/orders/admin/stats/dashboard`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

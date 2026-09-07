@@ -7,6 +7,8 @@ import {
 
 const AuthContext = createContext();
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     try {
@@ -60,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/users/wishlist",
+        `${API_URL}/users/wishlist`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -76,7 +78,6 @@ export const AuthProvider = ({ children }) => {
       }
 
       setWishlist(data.wishlist);
-
     } catch (error) {
       console.error(error);
     }
