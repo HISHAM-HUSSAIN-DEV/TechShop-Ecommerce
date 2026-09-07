@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-secondary: #38bdf8;
+  --color-accent: #f59e0b;
+
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+
+  --color-text: #0f172a;
+  --color-text-secondary: #64748b;
+
+  --color-border: #e2e8f0;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
+
+.PhoneInputInput {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  width: 100%;
+}
+
+.PhoneInputInput:focus {
+  outline: none;
+  box-shadow: none;
+}
