@@ -362,7 +362,7 @@ Protected admin endpoints provide functionality for:
 ![Home Page](screenshots/HomePage.png)
 
 #### Category Navigation
-![Category Navigation](screenshots/Home-selected-navbar.png)
+![Category Navigation](screenshots/Home-selected-navBar.png)
 
 #### Search
 ![Search](screenshots/SearchBar.png)
