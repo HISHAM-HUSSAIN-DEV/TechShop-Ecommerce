@@ -431,7 +431,7 @@ Protected admin endpoints provide functionality for:
 ### 🔐 Authentication
 
 #### Sign Up
-![Sign Up](screenshots/Sign-up.png)
+![Sign Up](screenshots/Sign-Up.png)
 
 #### Sign In
 ![Sign In](screenshots/Sign-In.png)
