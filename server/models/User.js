@@ -16,6 +16,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
+      lowercase: true,
     },
 
     phone: {
@@ -53,6 +55,7 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+
     role: {
       type: String,
       enum: ["user", "admin"],
@@ -69,6 +72,5 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
 
 export default mongoose.model("Users", userSchema, "users");

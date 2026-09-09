@@ -21,9 +21,12 @@ export const signUp = async (req, res) => {
       marketingConsent,
     } = req.body;
 
+    // توحيد صيغة الإيميل
+    const normalizedEmail = email.trim().toLowerCase();
+
     // التأكد من عدم وجود المستخدم
     const existingUser = await Users.findOne({
-      email: email.trim(),
+      email: normalizedEmail,
     });
 
     if (existingUser) {
@@ -42,7 +45,7 @@ export const signUp = async (req, res) => {
     const user = await Users.create({
       firstName,
       lastName,
-      email: email.trim(),
+      email: normalizedEmail,
       phone,
       password: hashedPassword,
       address,
@@ -107,9 +110,12 @@ export const signIn = async (req, res) => {
       password,
     } = req.body;
 
+    // توحيد صيغة الإيميل
+    const normalizedEmail = email.trim().toLowerCase();
+
     // البحث عن المستخدم
     const user = await Users.findOne({
-      email: email.trim(),
+      email: normalizedEmail,
     });
 
     if (!user) {
